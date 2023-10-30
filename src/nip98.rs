@@ -95,7 +95,7 @@ pub fn validate_nip98(auth: &str, url: Url, method: &str) -> Result<Event, Error
         return Err(Error::MethodMismatch);
     }
 
-    let event_url = Url::try_from(http_data.url).map_err(|_| Error::UrlMismatch)?;
+    let event_url = Url::parse(&http_data.url.to_string()).map_err(|_| Error::UrlMismatch)?;
     if event_url != url {
         return Err(Error::UrlMismatch);
     }
@@ -170,7 +170,7 @@ mod tests {
             .as_json();
         let event = validate_nip98(
             &format!("Nostr {}", STANDARD.encode(&expected)),
-            url.try_into().unwrap(),
+            Url::parse(&url.to_string()).unwrap(),
             "POST",
         )
         .unwrap();
@@ -226,7 +226,7 @@ mod tests {
             .as_json();
         let received = validate_nip98(
             &format!("Nostr {}", STANDARD.encode(&expected)),
-            url.try_into().unwrap(),
+            Url::parse(&url.to_string()).unwrap(),
             "POST",
         );
 
@@ -251,7 +251,7 @@ mod tests {
         let expected = expected.as_json();
         let received = validate_nip98(
             &format!("Nostr {}", STANDARD.encode(&expected)),
-            url.try_into().unwrap(),
+            Url::parse(&url.to_string()).unwrap(),
             "POST",
         );
 
@@ -296,7 +296,7 @@ mod tests {
             .as_json();
         let received = validate_nip98(
             &format!("Nostr {}", STANDARD.encode(&expected)),
-            url.try_into().unwrap(),
+            Url::parse(&url.to_string()).unwrap(),
             "GET",
         );
 
