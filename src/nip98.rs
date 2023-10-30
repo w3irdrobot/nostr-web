@@ -18,7 +18,7 @@ use axum_core::extract::FromRequestParts;
 
 const SCHEME: &str = "Nostr";
 
-pub struct Nip98PubKey(XOnlyPublicKey);
+pub struct Nip98PubKey(pub XOnlyPublicKey);
 
 impl From<XOnlyPublicKey> for Nip98PubKey {
     fn from(value: XOnlyPublicKey) -> Self {

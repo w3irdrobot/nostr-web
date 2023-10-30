@@ -1,1 +1,3 @@
-mod nip98;
+pub mod nip98;
+
+pub use nostr;

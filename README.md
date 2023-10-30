@@ -9,10 +9,9 @@ Utilities for building web servers for nostr
 There are extractors for actix and axum to provide a handler with the `XOnlyPublicKey` of the event in the auth header. If the event doesn't pass the checks defined in NIP-98, then a 401 will be returned as a response instead. An example handler for axum might look like this:
 
 ```rust
-use nostr::key::XOnlyPublicKey;
 use nostr_web::nip98::Nip98PubKey;
 
-async fn handler(Nip98PubKey(XOnlyPublicKey): Nip98PubKey) -> impl IntoResponse {
+async fn handler(Nip98PubKey(pubkey): Nip98PubKey) -> impl IntoResponse {
     StatusCode::OK
 }
 ```
